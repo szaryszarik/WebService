@@ -14,24 +14,20 @@ namespace WebApp.Controllers
 {
     public class EmployersController : ApiController
     {
+        private EmployeeRepository eRep = new EmployeeRepository();
         private WebAppContext db = new WebAppContext();
 
         // GET api/Employers
         public IList<EmployersDetailsDto> GetEmployees()
         {
-            return db.Employees.Select(p => new EmployersDetailsDto
-                {
-                    Name = p.Name,
-                    LastName = p.LastName,
-                    WorkNotes = p.WorkNotes.ToList()
-                }).ToList();
+            return eRep.GetEmployees();
         }
 
         // GET api/Employers/5
         [ResponseType(typeof(Employee))]
         public IHttpActionResult GetEmployee(int id)
         {
-            Employee employee = db.Employees.Find(id);
+            Employee employee = eRep.GetEmployee(id);
             if (employee == null)
             {
                 return NotFound();
@@ -83,24 +79,21 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Employees.Add(employee);
-            db.SaveChanges();
+            eRep.PostEmployee(employee);
 
             return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);
         }
 
         // DELETE api/Employers/5
         [ResponseType(typeof(Employee))]
+        [Route]
         public IHttpActionResult DeleteEmployee(int id)
         {
-            Employee employee = db.Employees.Find(id);
+            Employee employee = eRep.DeleteEmployee(id);
             if (employee == null)
             {
                 return NotFound();
             }
-
-            db.Employees.Remove(employee);
-            db.SaveChanges();
 
             return Ok(employee);
         }

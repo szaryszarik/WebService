@@ -150,7 +150,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeRepository.cs" />
     <Compile Include="Models\EmployersDetailsDto.cs" />
+    <Compile Include="Models\IEmployeeRepository.cs" />
     <Compile Include="Models\WebAppContext.cs" />
     <Compile Include="Models\WorkNote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
