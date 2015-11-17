@@ -12,7 +12,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    public class WorkNotesController : ApiController
+    public class WorkNotesController : ApiController, IDisposable
     {
         private WorkNoteRepository wRep = new WorkNoteRepository();
         private WebAppContext db = new WebAppContext();

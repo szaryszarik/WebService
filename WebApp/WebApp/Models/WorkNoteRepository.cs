@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApp.Models
 {
-    public class WorkNoteRepository : IDisposable, IWorkNotesRepository
+    public class WorkNoteRepository : IWorkNotesRepository
     {
         private WebAppContext db = new WebAppContext();
 
@@ -36,11 +36,6 @@ namespace WebApp.Models
         }
 
         public void PutWorkNote(int workNoteId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
         {
             throw new NotImplementedException();
         }

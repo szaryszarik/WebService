@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApp.Models
 {
-    public class EmployeeRepository : IDisposable, IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private WebAppContext db = new WebAppContext();
         public List<EmployersDetailsDto> GetEmployees()
@@ -44,11 +44,6 @@ namespace WebApp.Models
         }
 
         public void PutEmployee(int employeId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
         {
             throw new NotImplementedException();
         }

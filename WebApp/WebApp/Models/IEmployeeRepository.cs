@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApp.Models
 {
-    interface IEmployeeRepository : IDisposable
+    interface IEmployeeRepository
     {
         List<EmployersDetailsDto> GetEmployees();
         Employee GetEmployee(int employeeId);
