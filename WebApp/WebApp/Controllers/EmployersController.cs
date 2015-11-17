@@ -86,7 +86,7 @@ namespace WebApp.Controllers
 
         // DELETE api/Employers/5
         [ResponseType(typeof(Employee))]
-        [Route]
+        //[Route]
         public IHttpActionResult DeleteEmployee(int id)
         {
             Employee employee = eRep.DeleteEmployee(id);

@@ -14,6 +14,7 @@ namespace WebApp.Controllers
 {
     public class WorkNotesController : ApiController
     {
+        private WorkNoteRepository wRep = new WorkNoteRepository();
         private WebAppContext db = new WebAppContext();
 
         // GET api/WorkNotes
@@ -26,7 +27,7 @@ namespace WebApp.Controllers
         [ResponseType(typeof(WorkNote))]
         public IHttpActionResult GetWorkNote(int id)
         {
-            WorkNote worknote = db.WorkNotes.Find(id);
+            WorkNote worknote = wRep.GetWorkNote(id);//db.WorkNotes.Find(id);
             if (worknote == null)
             {
                 return NotFound();
@@ -78,8 +79,9 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.WorkNotes.Add(worknote);
-            db.SaveChanges();
+            wRep.PostWorkNote(worknote);
+            //db.WorkNotes.Add(worknote);
+            //db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = worknote.WorkNoteId }, worknote);
         }
@@ -88,14 +90,14 @@ namespace WebApp.Controllers
         [ResponseType(typeof(WorkNote))]
         public IHttpActionResult DeleteWorkNote(int id)
         {
-            WorkNote worknote = db.WorkNotes.Find(id);
+            WorkNote worknote = wRep.DeleteWorkNote(id);//db.WorkNotes.Find(id);
             if (worknote == null)
             {
                 return NotFound();
             }
 
-            db.WorkNotes.Remove(worknote);
-            db.SaveChanges();
+            /*db.WorkNotes.Remove(worknote);
+            db.SaveChanges();*/
 
             return Ok(worknote);
         }
