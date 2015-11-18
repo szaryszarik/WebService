@@ -12,7 +12,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    public class EmployersController : ApiController, IDisposable
+    public class EmployersController : ApiController
     {
         private EmployeeRepository eRep = new EmployeeRepository();
         private WebAppContext db = new WebAppContext();
