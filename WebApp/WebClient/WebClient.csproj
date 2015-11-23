@@ -58,8 +58,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Callers\ICaller.cs" />
-    <Compile Include="Callers\RestSharpCaller.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,7 +65,9 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeRepository.cs" />
     <Compile Include="Models\EmployersDetailsDto.cs" />
+    <Compile Include="Models\IEmployeeRepository.cs" />
     <Compile Include="Models\WorkNote.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
