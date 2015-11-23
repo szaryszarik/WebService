@@ -19,7 +19,7 @@ namespace WebClient
             /*
              *  Sample commands: (uncomment to use)
              */
-            //GetEmployers().Wait();
+            GetEmployers().Wait();
             //GetEmployers(13).Wait();
             //PostEmployee("NAME", "LASTNAME").Wait();
             //DeleteEmployee(13).Wait();
