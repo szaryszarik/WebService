@@ -9,7 +9,6 @@ namespace WebApp.Controllers
 {
     public class InfoController : ApiController
     {
-        // GET api/Employers
         public string getInfo()
         {
             return "Info";
