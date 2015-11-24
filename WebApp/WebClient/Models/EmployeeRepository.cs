@@ -21,7 +21,10 @@ namespace WebClient.Models
                     EmployersDetailsDto[] emps = await response.Content.ReadAsAsync<EmployersDetailsDto[]>();
                     foreach (EmployersDetailsDto emp in emps)
                     {
-                        Console.WriteLine("ID: {3}\tName: {0}\tLastName: {1}\tWorkNotes: {2}", emp.Name, emp.LastName, emp.WorkNotes, emp.EmployersDetailsDtoId);
+                        Console.WriteLine("ID: {2}\tName: {0}\tLastName: {1}", emp.Name, emp.LastName, emp.EmployersDetailsDtoId);
+                        foreach(WorkNote wn in emp.WorkNotes){
+                            Console.WriteLine(wn.Note);
+                        }
                     }
                 }
             }

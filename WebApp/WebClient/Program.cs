@@ -13,6 +13,7 @@ namespace WebClient
     static class Program
     {
         static EmployeeRepository eRep = new EmployeeRepository();
+        static WorkNoteRepository wRep = new WorkNoteRepository();
         [STAThread]
         static void Main()
         {
@@ -23,6 +24,7 @@ namespace WebClient
             GetEmployers().Wait();
             //PostEmployee("NAME", "LASTNAME").Wait();
             //DeleteEmployee(13).Wait();
+            //GetWorkNote(7).Wait();
         }
 
         static async Task GetEmployers()
@@ -43,6 +45,11 @@ namespace WebClient
         static async Task DeleteEmployee(int id)
         {
             await eRep.DeleteEmployee(id);
+        }
+
+        static async Task GetWorkNote(int id)
+        {
+            await wRep.GetWorkNote(id);
         }
     }
 }

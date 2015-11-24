@@ -68,7 +68,9 @@
     <Compile Include="Models\EmployeeRepository.cs" />
     <Compile Include="Models\EmployersDetailsDto.cs" />
     <Compile Include="Models\IEmployeeRepository.cs" />
+    <Compile Include="Models\IWorkNotesRepository.cs" />
     <Compile Include="Models\WorkNote.cs" />
+    <Compile Include="Models\WorkNoteRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
