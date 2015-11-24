@@ -17,6 +17,7 @@ namespace WebClient
         public Form1()
         {
             InitializeComponent();
+            this.MaximumSize = this.MinimumSize = this.Size;
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -50,6 +51,14 @@ namespace WebClient
 
                 dataGridView2.DataSource = temp;
             }
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            int rowIndex = dataGridView1.CurrentCell.RowIndex;
+            EmployeeRepository eps = new EmployeeRepository();
+            DataGridViewRow row = dataGridView1.Rows[rowIndex];
+            await eps.DeleteEmployee((int)row.Cells[0].Value);
         }
     }
 }

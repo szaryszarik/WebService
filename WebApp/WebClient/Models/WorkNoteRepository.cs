@@ -41,14 +41,36 @@ namespace WebClient.Models
             }
         }
 
-        public Task PostWorkNote(WorkNote workNote)
+        public async Task PostWorkNote(WorkNote workNote)
         {
-            throw new NotImplementedException();
+            using (var client = new HttpClient())
+            {
+                ConfigClient(client);
+                HttpResponseMessage response = await client.GetAsync("api/WorkNotes");
+                response = await client.PostAsJsonAsync("api/WorkNotes", workNote);
+                if (response.IsSuccessStatusCode)
+                {
+                    Uri WorkNoteUrl = response.Headers.Location;
+                }
+            }
         }
 
-        public Task DeleteWorkNote(int workNoteId)
+        public async Task DeleteWorkNote(int workNoteId)
         {
-            throw new NotImplementedException();
+            using (var client = new HttpClient())
+            {
+                ConfigClient(client);
+                string query = "api/WorkNotes/" + workNoteId;
+                var response = client.DeleteAsync(query).Result;
+                var data = response.Content;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Task<string> d = data.ReadAsStringAsync();
+                    Console.WriteLine("The deleted record is");
+                    Console.Write(d.Result.ToString());
+                }
+            }
         }
 
         static void ConfigClient(HttpClient c)

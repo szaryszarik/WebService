@@ -20,14 +20,11 @@ namespace WebClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            /*
-             *  Sample commands: (uncomment to use)
-             */
-            GetEmployers().Wait();
-            //GetEmployers().Wait();
+            //id=8
             //PostEmployee("NAME", "LASTNAME").Wait();
-            //DeleteEmployee(13).Wait();
-            //GetWorkNote(7).Wait();
+            //WorkNote ww = new WorkNote() { EmployeeId = 1, Note = "another test" };
+            //PostWorkNote(ww).Wait();
+            //DeleteWorkNote(7).Wait();
         }
 
         static async Task GetEmployers()
@@ -53,6 +50,16 @@ namespace WebClient
         static async Task GetWorkNote(int id)
         {
             await wRep.GetWorkNote(id);
+        }
+
+        static async Task PostWorkNote(WorkNote workNote)
+        {
+            await wRep.PostWorkNote(workNote);
+        }
+
+        static async Task DeleteWorkNote(int workNoteId)
+        {
+            await wRep.DeleteWorkNote(workNoteId);
         }
     }
 }
