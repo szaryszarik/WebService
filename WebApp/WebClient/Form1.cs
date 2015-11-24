@@ -21,25 +21,34 @@ namespace WebClient
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("CLICK");
             EmployeeRepository eps = new EmployeeRepository();
             List<EmployersDetailsDto> list = new List<EmployersDetailsDto>();
             list = await eps.GetEmployers();
-            //foreach(EmployersDetailsDto y in list)
-            //{
-            //    Console.WriteLine("ID: {2}\tName: {0}\tLastName: {1}", y.Name, y.LastName, y.EmployersDetailsDtoId);
-            //}
             dataGridView1.DataSource = list;
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
             if (dgv == null)
                 return;
             if (dgv.CurrentRow.Selected)
             {
-                Console.WriteLine("SO, WAR!");
+                WorkNoteRepository wps = new WorkNoteRepository();
+                List<WorkNote> list = new List<WorkNote>();
+                list = await wps.GetWorkNotes();
+
+                int rowIndex = e.RowIndex;
+                DataGridViewRow row = dataGridView1.Rows[rowIndex];
+
+                List<WorkNote> temp = new List<WorkNote>();
+                var result = list.Where<WorkNote>(item => item.EmployeeId == ((int)row.Cells[0].Value));
+                foreach(WorkNote w in result)
+                {
+                    temp.Add(w);
+                }
+
+                dataGridView2.DataSource = temp;
             }
         }
     }

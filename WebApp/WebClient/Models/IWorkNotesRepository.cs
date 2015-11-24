@@ -8,7 +8,8 @@ namespace WebClient.Models
 {
     interface IWorkNotesRepository
     {
-        Task GetWorkNote(int id);
+        Task<List<WorkNote>> GetWorkNotes();
+        Task<WorkNote> GetWorkNote(int id);
         Task PostWorkNote(WorkNote workNote);
         Task DeleteWorkNote(int workNoteId);
     }

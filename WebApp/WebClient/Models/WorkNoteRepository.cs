@@ -10,7 +10,21 @@ namespace WebClient.Models
 {
     class WorkNoteRepository : IWorkNotesRepository
     {
-        public async Task GetWorkNote(int id)
+        public async Task<List<WorkNote>> GetWorkNotes()
+        {
+            using (var client = new HttpClient())
+            {
+                ConfigClient(client);
+                HttpResponseMessage response = await client.GetAsync("api/WorkNotes");
+                if (response.IsSuccessStatusCode)
+                {
+                    List<WorkNote> notes = await response.Content.ReadAsAsync<List<WorkNote>>();
+                    return notes;
+                }
+                return null;
+            }
+        }
+        public async Task<WorkNote> GetWorkNote(int id)
         {
             using (var client = new HttpClient())
             {
@@ -20,8 +34,10 @@ namespace WebClient.Models
                 if (response.IsSuccessStatusCode)
                 {
                     WorkNote workNote = await response.Content.ReadAsAsync<WorkNote>();
-                    Console.WriteLine("WorkNote ID: {0}\tNote: {1}", workNote.WorkNoteId, workNote.Note);
+                    return workNote;
                 }
+                else
+                    return null;
             }
         }
 
