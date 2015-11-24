@@ -8,7 +8,7 @@ namespace WebClient.Models
 {
     interface IEmployeeRepository
     {
-        Task GetEmployers();
+        Task<List<EmployersDetailsDto>> GetEmployers();
         Task GetEmployers(int id);
         Task PostEmployee(string name, string lastName);
         Task DeleteEmployee(int id);

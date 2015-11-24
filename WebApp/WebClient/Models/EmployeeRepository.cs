@@ -5,12 +5,18 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using WebClient.Models;
 
 namespace WebClient.Models
 {
     class EmployeeRepository : IEmployeeRepository
     {
-        public async Task GetEmployers()
+        List<EmployersDetailsDto> gizmo;
+        public async Task<List<EmployersDetailsDto>> GetEmployers()
         {
             using (var client = new HttpClient())
             {
@@ -18,15 +24,21 @@ namespace WebClient.Models
                 HttpResponseMessage response = await client.GetAsync("api/employers");
                 if (response.IsSuccessStatusCode)
                 {
-                    EmployersDetailsDto[] emps = await response.Content.ReadAsAsync<EmployersDetailsDto[]>();
-                    foreach (EmployersDetailsDto emp in emps)
-                    {
-                        Console.WriteLine("ID: {2}\tName: {0}\tLastName: {1}", emp.Name, emp.LastName, emp.EmployersDetailsDtoId);
-                        foreach(WorkNote wn in emp.WorkNotes){
-                            Console.WriteLine(wn.Note);
-                        }
-                    }
+                    //EmployersDetailsDto[] emps = await response.Content.ReadAsAsync<EmployersDetailsDto[]>();
+                    
+                    
+                    List<EmployersDetailsDto> emps = await response.Content.ReadAsAsync<List<EmployersDetailsDto>>();
+                    return emps;
+                    //foreach (EmployersDetailsDto emp in emps)
+                    //{
+                    //    Console.WriteLine("ID: {2}\tName: {0}\tLastName: {1}", emp.Name, emp.LastName, emp.EmployersDetailsDtoId);
+                    //    foreach (WorkNote wn in emp.WorkNotes)
+                    //    {
+                    //        Console.WriteLine(wn.Note);
+                    //    }
+                    //}
                 }
+                return null;
             }
         }
 

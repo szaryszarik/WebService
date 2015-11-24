@@ -17,11 +17,14 @@ namespace WebClient
         [STAThread]
         static void Main()
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
             /*
              *  Sample commands: (uncomment to use)
              */
-            //GetEmployers().Wait();
             GetEmployers().Wait();
+            //GetEmployers().Wait();
             //PostEmployee("NAME", "LASTNAME").Wait();
             //DeleteEmployee(13).Wait();
             //GetWorkNote(7).Wait();
