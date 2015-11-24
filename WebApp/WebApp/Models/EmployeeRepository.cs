@@ -12,6 +12,7 @@ namespace WebApp.Models
         {
             return db.Employees.Select(p => new EmployersDetailsDto
             {
+                EmployersDetailsDtoId = p.EmployeeId,
                 Name = p.Name,
                 LastName = p.LastName,
                 WorkNotes = p.WorkNotes.ToList()

@@ -21,7 +21,7 @@ namespace WebClient.Models
                     EmployersDetailsDto[] emps = await response.Content.ReadAsAsync<EmployersDetailsDto[]>();
                     foreach (EmployersDetailsDto emp in emps)
                     {
-                        Console.WriteLine("Name: {0}\tLastName: {1}\tWorkNotes: {2}", emp.Name, emp.LastName, emp.WorkNotes);
+                        Console.WriteLine("ID: {3}\tName: {0}\tLastName: {1}\tWorkNotes: {2}", emp.Name, emp.LastName, emp.WorkNotes, emp.EmployersDetailsDtoId);
                     }
                 }
             }
@@ -46,9 +46,6 @@ namespace WebClient.Models
         {
             using (var client = new HttpClient())
             {
-                //client.BaseAddress = new Uri("http://localhost:64656/");
-                //client.DefaultRequestHeaders.Accept.Clear();
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 ConfigClient(client);
                 HttpResponseMessage response = await client.GetAsync("api/employers");
                 var newEmp = new Employee() { Name = name, LastName = lastName };
