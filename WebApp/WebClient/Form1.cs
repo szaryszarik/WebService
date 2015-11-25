@@ -13,21 +13,24 @@ namespace WebClient
 {
     public partial class Form1 : Form
     {
-        
+        private BindingList<EmployersDetailsDto> list = new BindingList<EmployersDetailsDto>();
+        private BindingSource bs = new BindingSource();
         public Form1()
         {
             InitializeComponent();
             this.MaximumSize = this.MinimumSize = this.Size;
         }
 
+        // DataBase Binding
         private async void button1_Click(object sender, EventArgs e)
         {
             EmployeeRepository eps = new EmployeeRepository();
-            List<EmployersDetailsDto> list = new List<EmployersDetailsDto>();
             list = await eps.GetEmployers();
+            bs.DataSource = list;
             dataGridView1.DataSource = list;
         }
 
+        //  WorkNotes Binding
         private async void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
@@ -38,27 +41,53 @@ namespace WebClient
                 WorkNoteRepository wps = new WorkNoteRepository();
                 List<WorkNote> list = new List<WorkNote>();
                 list = await wps.GetWorkNotes();
-
                 int rowIndex = e.RowIndex;
-                DataGridViewRow row = dataGridView1.Rows[rowIndex];
-
-                List<WorkNote> temp = new List<WorkNote>();
-                var result = list.Where<WorkNote>(item => item.EmployeeId == ((int)row.Cells[0].Value));
-                foreach(WorkNote w in result)
+                if(rowIndex >= 0)
                 {
-                    temp.Add(w);
-                }
+                    DataGridViewRow row = dataGridView1.Rows[rowIndex];
 
-                dataGridView2.DataSource = temp;
+                    List<WorkNote> temp = new List<WorkNote>();
+                    var result = list.Where<WorkNote>(item => item.EmployeeId == ((int)row.Cells[0].Value));
+                    foreach (WorkNote w in result)
+                    {
+                        temp.Add(w);
+                    }
+
+                    dataGridView2.DataSource = temp;
+                }
             }
         }
 
+        //Delete Row
         private async void button3_Click(object sender, EventArgs e)
         {
-            int rowIndex = dataGridView1.CurrentCell.RowIndex;
-            EmployeeRepository eps = new EmployeeRepository();
-            DataGridViewRow row = dataGridView1.Rows[rowIndex];
-            await eps.DeleteEmployee((int)row.Cells[0].Value);
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("This row is going to be deleted, are you sure?", "WARNING", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    int rowIndex = dataGridView1.CurrentCell.RowIndex;
+                    EmployeeRepository eps = new EmployeeRepository();
+                    DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                    await eps.DeleteEmployee((int)row.Cells[0].Value);
+                    bs.RemoveAt(dataGridView1.SelectedRows[0].Index);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select one row");
+            }
+        }
+
+        //Create new Employee
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AddDIalog add = new AddDIalog();
+            add.Show();
         }
     }
 }

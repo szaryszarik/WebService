@@ -58,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDIalog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDIalog.Designer.cs">
+      <DependentUpon>AddDIalog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     <Compile Include="Models\WorkNoteRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddDIalog.resx">
+      <DependentUpon>AddDIalog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
