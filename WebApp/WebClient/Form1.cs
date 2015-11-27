@@ -14,15 +14,23 @@ namespace WebClient
     public partial class Form1 : Form
     {
         private BindingList<EmployersDetailsDto> list = new BindingList<EmployersDetailsDto>();
-        private BindingSource bs = new BindingSource();
+        public BindingSource bs = new BindingSource();
+
+        public DataGridView dgv;
+
         public Form1()
         {
             InitializeComponent();
             this.MaximumSize = this.MinimumSize = this.Size;
         }
 
+        public Form1 getForm1()
+        {
+            return this;
+        }
+
         // DataBase Binding
-        private async void button1_Click(object sender, EventArgs e)
+        public async void button1_Click(object sender, EventArgs e)
         {
             EmployeeRepository eps = new EmployeeRepository();
             list = await eps.GetEmployers();
@@ -84,9 +92,11 @@ namespace WebClient
         }
 
         //Create new Employee
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
-            AddDIalog add = new AddDIalog();
+            EmployeeRepository eps = new EmployeeRepository();
+            dgv = dataGridView1;
+            AddDIalog add = new AddDIalog(this);
             add.Show();
         }
     }

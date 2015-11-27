@@ -20,31 +20,9 @@ namespace WebClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            //id=8
-            //PostEmployee("NAME", "LASTNAME").Wait();
             //WorkNote ww = new WorkNote() { EmployeeId = 1, Note = "another test" };
             //PostWorkNote(ww).Wait();
             //DeleteWorkNote(7).Wait();
-        }
-
-        static async Task GetEmployers()
-        {
-            await eRep.GetEmployers();
-        }
-
-        static async Task GetEmployers(int id)
-        {
-            await eRep.GetEmployers(id);
-        }
-
-        static async Task PostEmployee(string name, string lastName)
-        {
-            await eRep.PostEmployee(name, lastName);
-        }
-
-        static async Task DeleteEmployee(int id)
-        {
-            await eRep.DeleteEmployee(id);
         }
 
         static async Task GetWorkNote(int id)

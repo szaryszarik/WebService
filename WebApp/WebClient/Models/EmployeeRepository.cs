@@ -15,8 +15,7 @@ namespace WebClient.Models
 {
     class EmployeeRepository : IEmployeeRepository
     {
-        List<EmployersDetailsDto> gizmo;
-        //List<EmployersDetailsDto>
+        //List<EmployersDetailsDto> gizmo;
         public async Task<BindingList<EmployersDetailsDto>> GetEmployers()
         {
             using (var client = new HttpClient())
@@ -25,7 +24,6 @@ namespace WebClient.Models
                 HttpResponseMessage response = await client.GetAsync("api/employers");
                 if (response.IsSuccessStatusCode)
                 {
-                    //List<EmployersDetailsDto> emps = await response.Content.ReadAsAsync<List<EmployersDetailsDto>>();
                     BindingList<EmployersDetailsDto> emps = await response.Content.ReadAsAsync<BindingList<EmployersDetailsDto>>();
                     return emps;
                 }
