@@ -99,5 +99,35 @@ namespace WebClient
             AddDIalog add = new AddDIalog(this);
             add.Show();
         }
+
+        //New note
+        private async void button4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int rowIndex = dataGridView1.CurrentCell.RowIndex;
+                DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                int empId = (int)row.Cells[0].Value;
+                dgv = dataGridView2;
+                AddNote add = new AddNote(this, empId);
+                add.Show();
+
+                //WorkNote workNote = new WorkNote() { Note = "Notetest" };
+
+                //WorkNoteRepository wRep = new WorkNoteRepository();
+
+
+
+                //workNote.EmployeeId = empId;
+                //await wRep.PostWorkNote(workNote);
+
+
+            }
+            else
+            {
+                Console.WriteLine("No selection");
+            }
+
+        }    
     }
 }
