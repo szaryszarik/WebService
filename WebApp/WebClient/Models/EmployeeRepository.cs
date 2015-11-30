@@ -10,12 +10,12 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using WebClient.Models;
+using System.Collections.ObjectModel;
 
 namespace WebClient.Models
 {
     class EmployeeRepository : IEmployeeRepository
     {
-        //List<EmployersDetailsDto> gizmo;
         public async Task<BindingList<EmployersDetailsDto>> GetEmployers()
         {
             using (var client = new HttpClient())
@@ -79,14 +79,21 @@ namespace WebClient.Models
             }
         }
 
-        public async Task PutEmployee(int id, Employee employee)
+        public async Task PutEmployee(int id, string name, string lastname)
         {
             using(var client = new HttpClient())
             {
                 ConfigClient(client);
                 string query = "api/employers/" + id;
-
-                HttpResponseMessage response = await client.PutAsJsonAsync(query, employee);
+                HttpResponseMessage response = await client.GetAsync(query);
+                if (response.IsSuccessStatusCode)
+                {
+                    Employee temp = await response.Content.ReadAsAsync<Employee>();
+                    temp.Name = name;
+                    temp.LastName = lastname;
+                    Console.WriteLine("OK: {0}", temp.EmployeeId);
+                    response = await client.PutAsJsonAsync(query, temp);
+                }
             }
         }
 

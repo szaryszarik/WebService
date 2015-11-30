@@ -50,7 +50,7 @@ namespace WebClient
                 List<WorkNote> list = new List<WorkNote>();
                 list = await wps.GetWorkNotes();
                 int rowIndex = e.RowIndex;
-                if(rowIndex >= 0)
+                if (rowIndex >= 0)
                 {
                     DataGridViewRow row = dataGridView1.Rows[rowIndex];
 
@@ -118,7 +118,23 @@ namespace WebClient
                 MessageBox.Show("None row selected.");
             }
 
-        }   
-        
+        }
+
+        //Edit employee
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+            int id = (int)row.Cells[0].Value;
+            string name = (string)row.Cells[1].Value;
+            string lastName = (string)row.Cells[2].Value;
+            
+            EmployeeRepository eRep = new EmployeeRepository();
+            await eRep.PutEmployee(id, name, lastName);
+        }
     }
 }

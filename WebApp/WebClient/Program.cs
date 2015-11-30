@@ -20,7 +20,7 @@ namespace WebClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            //PutEmployee(32, new Employee()).Wait();
+            //PutEmployee(32, "Mesajah", null).Wait();
         }
 
         static async Task GetWorkNote(int id)
@@ -38,12 +38,9 @@ namespace WebClient
             await wRep.DeleteWorkNote(workNoteId);
         }
 
-        static async Task PutEmployee(int id, Employee employee)
+        static async Task PutEmployee(int id, string name, string lastname)
         {
-            //Wlodecki 32
-            Employee emp = new Employee() { Name = "putTest", LastName = "..." };
-            await eRep.PutEmployee(id, emp);
-            Console.WriteLine("Done.");
+            await eRep.PutEmployee(id, name, lastname);
         }
     }
 }
