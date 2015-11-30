@@ -120,12 +120,6 @@ namespace WebClient
 
         }
 
-        //Edit employee
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private async void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
