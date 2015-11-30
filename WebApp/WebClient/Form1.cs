@@ -112,22 +112,13 @@ namespace WebClient
                 AddNote add = new AddNote(this, empId);
                 add.Show();
 
-                //WorkNote workNote = new WorkNote() { Note = "Notetest" };
-
-                //WorkNoteRepository wRep = new WorkNoteRepository();
-
-
-
-                //workNote.EmployeeId = empId;
-                //await wRep.PostWorkNote(workNote);
-
-
             }
             else
             {
-                Console.WriteLine("No selection");
+                MessageBox.Show("None row selected.");
             }
 
-        }    
+        }   
+        
     }
 }

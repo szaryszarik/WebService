@@ -79,13 +79,22 @@ namespace WebClient.Models
             }
         }
 
+        public async Task PutEmployee(int id, Employee employee)
+        {
+            using(var client = new HttpClient())
+            {
+                ConfigClient(client);
+                string query = "api/employers/" + id;
+
+                HttpResponseMessage response = await client.PutAsJsonAsync(query, employee);
+            }
+        }
+
         static void ConfigClient(HttpClient c)
         {
             c.BaseAddress = new Uri("http://localhost:64656/");
             c.DefaultRequestHeaders.Accept.Clear();
             c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
-        
     }
 }

@@ -37,8 +37,10 @@ namespace WebApp.Controllers
         }
 
         // PUT api/Employers/5
+        [ResponseType(typeof(Employee))]
         public IHttpActionResult PutEmployee(int id, Employee employee)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -96,15 +98,6 @@ namespace WebApp.Controllers
             }
 
             return Ok(employee);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         private bool EmployeeExists(int id)

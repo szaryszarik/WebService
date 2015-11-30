@@ -14,5 +14,6 @@ namespace WebClient.Models
         Task GetEmployers(int id);
         Task PostEmployee(string name, string lastName);
         Task DeleteEmployee(int id);
+        Task PutEmployee(int id, Employee employee);
     }
 }

@@ -8,6 +8,12 @@ namespace WebApp.Models
     public class EmployeeRepository : IEmployeeRepository
     {
         private WebAppContext db = new WebAppContext();
+        private List<EmployersDetailsDto> emps;
+        public EmployeeRepository()
+        {
+            emps = GetEmployees();
+        }
+
         public List<EmployersDetailsDto> GetEmployees()
         {
             return db.Employees.Select(p => new EmployersDetailsDto
@@ -44,9 +50,12 @@ namespace WebApp.Models
 
         }
 
-        public void PutEmployee(int employeId)
+        public void PutEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            int index = emps.FindIndex(e => e.EmployersDetailsDtoId == employee.EmployeeId);
+            emps.RemoveAt(index);
+            db.Employees.Add(employee);
+            db.SaveChanges();
         }
     }
 }
