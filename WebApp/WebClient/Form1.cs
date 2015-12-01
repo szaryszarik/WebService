@@ -120,8 +120,12 @@ namespace WebClient
 
         }
 
+        //Edit
         private async void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            //Cheking if there are notes binded to this employee
+
+            //
             DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
             int id = (int)row.Cells[0].Value;
             string name = (string)row.Cells[1].Value;
@@ -129,6 +133,33 @@ namespace WebClient
             
             EmployeeRepository eRep = new EmployeeRepository();
             await eRep.PutEmployee(id, name, lastName);
+        }
+
+        //Delete Note
+        private async void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowIndex = dataGridView1.CurrentCell.RowIndex;
+            DataGridViewRow rowEmp = dataGridView1.Rows[rowIndex];
+            int empID = (int)rowEmp.Cells[0].Value;
+
+            if (dataGridView2.SelectedRows.Count > 0)
+            {
+                WorkNoteRepository wRep = new WorkNoteRepository();
+                DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
+                int id = (int)row.Cells[0].Value;
+                await wRep.DeleteWorkNote(id);
+                dgv = dataGridView2;
+                dgv.DataSource = null;
+                List<WorkNote> list = new List<WorkNote>();
+                list = await wRep.GetWorkNotes();
+                List<WorkNote> temp = new List<WorkNote>();
+                var result = list.Where<WorkNote>(item => item.EmployeeId == empID);
+                foreach(WorkNote w in result)
+                {
+                    temp.Add(w);
+                }
+                dgv.DataSource = temp;
+            }
         }
     }
 }
