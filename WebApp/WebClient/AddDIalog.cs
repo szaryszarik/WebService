@@ -27,17 +27,28 @@ namespace WebClient
         
         public async void AddButton_Click(object sender, EventArgs e)
         {
-            name = NameBox.Text;
-            lastName = LNameBox.Text;
-            await eRep.PostEmployee(name, lastName);
+            if((NameBox.Text.Length > 0) && (LNameBox.Text.Length > 0))
+            {
+                name = NameBox.Text;
+                lastName = LNameBox.Text;
+                await eRep.PostEmployee(name, lastName);
 
-            F.dgv.DataSource = null;
-            list = await eRep.GetEmployers();
-            F.bs.DataSource = list;
-            F.dgv.DataSource = list;
+                F.dgv.DataSource = null;
+                list = await eRep.GetEmployers();
+                F.bs.DataSource = list;
+                F.dgv.DataSource = list;
 
-            MessageBox.Show("New Employee successfully added to DataBase.");
-            this.Close();
+                MessageBox.Show("New Employee successfully added to DataBase.");
+                this.Close();
+            } else
+            {
+                DialogResult dialogResult = MessageBox.Show("Fill empty textBox", "WARNING", MessageBoxButtons.OK);
+                if (dialogResult == DialogResult.OK)
+                {
+                    AddDIalog add = this;
+                    this.Show();
+                }
+            }
         }
     }
 }

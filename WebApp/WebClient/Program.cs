@@ -20,27 +20,6 @@ namespace WebClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            //PutEmployee(32, "Mesajah", null).Wait();
-        }
-
-        static async Task GetWorkNote(int id)
-        {
-            await wRep.GetWorkNote(id);
-        }
-
-        static async Task PostWorkNote(WorkNote workNote)
-        {
-            await wRep.PostWorkNote(workNote);
-        }
-
-        static async Task DeleteWorkNote(int workNoteId)
-        {
-            await wRep.DeleteWorkNote(workNoteId);
-        }
-
-        static async Task PutEmployee(int id, string name, string lastname)
-        {
-            await eRep.PutEmployee(id, name, lastname);
         }
     }
 }
