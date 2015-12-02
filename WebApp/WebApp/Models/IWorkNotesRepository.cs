@@ -8,9 +8,9 @@ namespace WebApp.Models
 {
     interface IWorkNotesRepository
     {
-        WorkNote GetWorkNote(int id);
-        void PostWorkNote(WorkNote workNote);
-        WorkNote DeleteWorkNote(int workNoteId);
-        void PutWorkNote(int workNoteId, WorkNote workNote);
+        WorkNote Get(int id);
+        void Add(WorkNote workNote);
+        WorkNote Remove(int workNoteId);
+        void Update(int workNoteId, WorkNote workNote);
     }
 }

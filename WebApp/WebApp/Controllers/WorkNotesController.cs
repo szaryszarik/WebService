@@ -27,7 +27,7 @@ namespace WebApp.Controllers
         [ResponseType(typeof(WorkNote))]
         public IHttpActionResult GetWorkNote(int id)
         {
-            WorkNote worknote = wRep.GetWorkNote(id);
+            WorkNote worknote = wRep.Get(id);
             if (worknote == null)
             {
                 return NotFound();
@@ -50,11 +50,11 @@ namespace WebApp.Controllers
             }
             try
             {
-                wRep.PutWorkNote(id, worknote);
+                wRep.Update(id, worknote);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!WorkNoteExists(id))
+                if (!wRep.WorkNoteExists(id))
                 {
                     return NotFound();
                 }
@@ -76,7 +76,7 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            wRep.PostWorkNote(worknote);
+            wRep.Add(worknote);
 
             return CreatedAtRoute("DefaultApi", new { id = worknote.WorkNoteId }, worknote);
         }
@@ -85,17 +85,12 @@ namespace WebApp.Controllers
         [ResponseType(typeof(WorkNote))]
         public IHttpActionResult DeleteWorkNote(int id)
         {
-            WorkNote worknote = wRep.DeleteWorkNote(id);
+            WorkNote worknote = wRep.Remove(id);
             if (worknote == null)
             {
                 return NotFound();
             }
             return Ok(worknote);
-        }
-
-        private bool WorkNoteExists(int id)
-        {
-            return db.WorkNotes.Count(e => e.WorkNoteId == id) > 0;
         }
     }
 }

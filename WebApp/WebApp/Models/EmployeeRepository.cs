@@ -12,10 +12,10 @@ namespace WebApp.Models
         private List<EmployersDetailsDto> emps;
         public EmployeeRepository()
         {
-            emps = GetEmployees();
+            emps = Get();
         }
 
-        public List<EmployersDetailsDto> GetEmployees()
+        public List<EmployersDetailsDto> Get()
         {
             return db.Employees.Select(p => new EmployersDetailsDto
             {
@@ -26,19 +26,19 @@ namespace WebApp.Models
             }).ToList();
         }
 
-        public Employee GetEmployee(int employeeId)
+        public Employee Get(int employeeId)
         {
             Employee employee = db.Employees.Find(employeeId);
             return employee;
         }
 
-        public void PostEmployee(Employee employee)
+        public void Add(Employee employee)
         {
             db.Employees.Add(employee);
             db.SaveChanges();
         }
 
-        public Employee DeleteEmployee(int employeeId)
+        public Employee Remove(int employeeId)
         {
             Employee employee = db.Employees.Find(employeeId);
             if (employee != null)
@@ -51,11 +51,16 @@ namespace WebApp.Models
 
         }
 
-        public void PutEmployee(int id, Employee employee)
+        public void Update(int id, Employee employee)
         {
             db.Entry(employee).State = EntityState.Modified;
             var emp = db.Employees.Single(e => e.EmployeeId == id);
             db.SaveChanges();
+        }
+
+        public bool EmployeeExists(int id)
+        {
+            return db.Employees.Any(e => e.EmployeeId == id);
         }
     }
 }

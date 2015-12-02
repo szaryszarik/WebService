@@ -8,10 +8,10 @@ namespace WebApp.Models
 {
     interface IEmployeeRepository
     {
-        List<EmployersDetailsDto> GetEmployees();
-        Employee GetEmployee(int employeeId);
-        void PostEmployee(Employee employee);
-        Employee DeleteEmployee(int employeeId);
-        void PutEmployee(int id, Employee employee);
+        List<EmployersDetailsDto> Get();
+        Employee Get(int employeeId);
+        void Add(Employee employee);
+        Employee Remove(int employeeId);
+        void Update(int id, Employee employee);
     }
 }

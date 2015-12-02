@@ -10,18 +10,18 @@ namespace WebApp.Models
     {
         private WebAppContext db = new WebAppContext();
 
-        public WorkNote GetWorkNote(int id)
+        public WorkNote Get(int id)
         {
             return db.WorkNotes.Find(id);
         }
 
-        public void PostWorkNote(WorkNote workNote)
+        public void Add(WorkNote workNote)
         {
             db.WorkNotes.Add(workNote);
             db.SaveChanges();
         }
 
-        public WorkNote DeleteWorkNote(int workNoteId)
+        public WorkNote Remove(int workNoteId)
         {
             WorkNote worknote = db.WorkNotes.Find(workNoteId);
             if (worknote != null)
@@ -33,11 +33,16 @@ namespace WebApp.Models
             return null;
         }
 
-        public void PutWorkNote(int workNoteId, WorkNote workNote)
+        public void Update(int workNoteId, WorkNote workNote)
         {
             db.Entry(workNote).State = EntityState.Modified;
             var note = db.WorkNotes.Single(w => w.WorkNoteId == workNoteId);
             db.SaveChanges();
+        }
+
+        public bool WorkNoteExists(int id)
+        {
+            return db.WorkNotes.Any(e => e.WorkNoteId == id);
         }
     }
 }

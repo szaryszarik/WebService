@@ -21,14 +21,14 @@ namespace WebApp.Controllers
         // GET api/Employers
         public IList<EmployersDetailsDto> GetEmployees()
         {
-            return eRep.GetEmployees();
+            return eRep.Get();
         }
 
         // GET api/Employers/5
         [ResponseType(typeof(Employee))]
         public IHttpActionResult GetEmployee(int id)
         {
-            Employee employee = eRep.GetEmployee(id);
+            Employee employee = eRep.Get(id);
             if (employee == null)
             {
                 return NotFound();
@@ -53,11 +53,11 @@ namespace WebApp.Controllers
             }
             try
             {
-                eRep.PutEmployee(id, employee);
+                eRep.Update(id, employee);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmployeeExists(id))
+                if (!eRep.EmployeeExists(id))
                 {
                     return NotFound();
                 }
@@ -78,7 +78,7 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            eRep.PostEmployee(employee);
+            eRep.Add(employee);
 
             return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);
         }
@@ -87,18 +87,13 @@ namespace WebApp.Controllers
         [ResponseType(typeof(Employee))]
         public IHttpActionResult DeleteEmployee(int id)
         {
-            Employee employee = eRep.DeleteEmployee(id);
+            Employee employee = eRep.Remove(id);
             if (employee == null)
             {
                 return NotFound();
             }
 
             return Ok(employee);
-        }
-
-        private bool EmployeeExists(int id)
-        {
-            return db.Employees.Count(e => e.EmployeeId == id) > 0;
         }
     }
 }
