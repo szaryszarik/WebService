@@ -11,6 +11,6 @@ namespace WebApp.Models
         WorkNote GetWorkNote(int id);
         void PostWorkNote(WorkNote workNote);
         WorkNote DeleteWorkNote(int workNoteId);
-        void PutWorkNote(int workNoteId);
+        void PutWorkNote(int workNoteId, WorkNote workNote);
     }
 }

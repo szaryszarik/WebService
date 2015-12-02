@@ -12,6 +12,6 @@ namespace WebApp.Models
         Employee GetEmployee(int employeeId);
         void PostEmployee(Employee employee);
         Employee DeleteEmployee(int employeeId);
-        void PutEmployee(Employee employee);
+        void PutEmployee(int id, Employee employee);
     }
 }

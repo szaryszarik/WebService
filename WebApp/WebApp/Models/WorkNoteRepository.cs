@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -11,10 +12,7 @@ namespace WebApp.Models
 
         public WorkNote GetWorkNote(int id)
         {
-            WorkNote worknote = db.WorkNotes.Find(id);
-            if (worknote != null)
-                return worknote;
-            else return null;
+            return db.WorkNotes.Find(id);
         }
 
         public void PostWorkNote(WorkNote workNote)
@@ -35,9 +33,11 @@ namespace WebApp.Models
             return null;
         }
 
-        public void PutWorkNote(int workNoteId)
+        public void PutWorkNote(int workNoteId, WorkNote workNote)
         {
-            throw new NotImplementedException();
+            db.Entry(workNote).State = EntityState.Modified;
+            var note = db.WorkNotes.Single(w => w.WorkNoteId == workNoteId);
+            db.SaveChanges();
         }
     }
 }

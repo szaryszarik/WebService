@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -50,11 +51,10 @@ namespace WebApp.Models
 
         }
 
-        public void PutEmployee(Employee employee)
+        public void PutEmployee(int id, Employee employee)
         {
-            int index = emps.FindIndex(e => e.EmployersDetailsDtoId == employee.EmployeeId);
-            emps.RemoveAt(index);
-            db.Employees.Add(employee);
+            db.Entry(employee).State = EntityState.Modified;
+            var emp = db.Employees.Single(e => e.EmployeeId == id);
             db.SaveChanges();
         }
     }

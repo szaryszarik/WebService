@@ -48,12 +48,9 @@ namespace WebApp.Controllers
             {
                 return BadRequest();
             }
-
-            db.Entry(worknote).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
+                wRep.PutWorkNote(id, worknote);
             }
             catch (DbUpdateConcurrencyException)
             {

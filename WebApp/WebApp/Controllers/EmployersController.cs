@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -50,12 +51,9 @@ namespace WebApp.Controllers
             {
                 return BadRequest();
             }
-
-            db.Entry(employee).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
+                eRep.PutEmployee(id, employee);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -68,7 +66,6 @@ namespace WebApp.Controllers
                     throw;
                 }
             }
-
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -88,7 +85,6 @@ namespace WebApp.Controllers
 
         // DELETE api/Employers/5
         [ResponseType(typeof(Employee))]
-        //[Route]
         public IHttpActionResult DeleteEmployee(int id)
         {
             Employee employee = eRep.DeleteEmployee(id);

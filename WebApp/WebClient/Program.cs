@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using WebClient.Models;
+using AutoMapper;
 
 namespace WebClient
 {
