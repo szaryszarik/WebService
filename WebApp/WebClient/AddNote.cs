@@ -48,6 +48,9 @@ namespace WebClient
                     temp.Add(w);
                 }
                 F.dgv.DataSource = temp;
+                F.dgv.Columns["Employee"].Visible = false;
+                F.dgv.Columns["WorkNoteId"].Visible = false;
+                F.dgv.Columns["EmployeeId"].Visible = false;
                 this.Close();
             }
             else

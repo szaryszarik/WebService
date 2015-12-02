@@ -61,6 +61,9 @@ namespace WebClient
                         temp.Add(w);
                     }
                     dataGridView2.DataSource = temp;
+                    this.dataGridView2.Columns["Employee"].Visible = false;
+                    this.dataGridView2.Columns["WorkNoteId"].Visible = false;
+                    this.dataGridView2.Columns["EmployeeId"].Visible = false;
                 }
             }
         }
@@ -198,6 +201,9 @@ namespace WebClient
                         temp.Add(w);
                     }
                     dgv.DataSource = temp;
+                    dgv.Columns["Employee"].Visible = false;
+                    dgv.Columns["WorkNoteId"].Visible = false;
+                    dgv.Columns["EmployeeId"].Visible = false;
                 }
             }
         }
