@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -17,13 +18,16 @@ namespace WebApp.Models
 
         public List<EmployersDetailsDto> Get()
         {
-            return db.Employees.Select(p => new EmployersDetailsDto
-            {
-                EmployersDetailsDtoId = p.EmployeeId,
-                Name = p.Name,
-                LastName = p.LastName,
-                WorkNotes = p.WorkNotes.ToList()
-            }).ToList();
+            //return db.Employees.Select(p => new EmployersDetailsDto
+            //{
+            //    EmployersDetailsDtoId = p.EmployeeId,
+            //    Name = p.Name,
+            //    LastName = p.LastName,
+            //    WorkNotes = p.WorkNotes.ToList()
+            //}).ToList();
+
+            var employers = db.Employees.ToList();
+            return Mapper.Map<List<EmployersDetailsDto>>(employers);
         }
 
         public Employee Get(int employeeId)

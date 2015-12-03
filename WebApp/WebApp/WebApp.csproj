@@ -159,6 +159,7 @@
       <DependentUpon>201511041548165_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AutoMaperConfiguration.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EmployeeRepository.cs" />
     <Compile Include="Models\EmployersDetailsDto.cs" />
