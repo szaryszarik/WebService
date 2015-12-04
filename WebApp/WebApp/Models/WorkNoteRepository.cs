@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -10,9 +11,16 @@ namespace WebApp.Models
     {
         private WebAppContext db = new WebAppContext();
 
-        public WorkNote Get(int id)
+        public WorkNotesDto Get(int id)
         {
-            return db.WorkNotes.Find(id);
+            var workNote = db.WorkNotes.Find(id);
+            return Mapper.Map<WorkNotesDto>(workNote);
+        }
+
+        public List<WorkNotesDto> Get()
+        {
+            var workNotes = db.WorkNotes.ToList();
+            return Mapper.Map<List<WorkNotesDto>>(workNotes);
         }
 
         public void Add(WorkNote workNote)

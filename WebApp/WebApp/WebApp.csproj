@@ -168,6 +168,7 @@
     <Compile Include="Models\WebAppContext.cs" />
     <Compile Include="Models\WorkNote.cs" />
     <Compile Include="Models\WorkNoteRepository.cs" />
+    <Compile Include="Models\WorkNotesDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

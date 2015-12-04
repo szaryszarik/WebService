@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -16,18 +17,21 @@ namespace WebApp.Controllers
     {
         private WorkNoteRepository wRep = new WorkNoteRepository();
         private WebAppContext db = new WebAppContext();
-
+        
         // GET api/WorkNotes
-        public IQueryable<WorkNote> GetWorkNotes()
+        public IList<WorkNotesDto> GetWorkNotes()
         {
-            return db.WorkNotes;
+            var notes = wRep.Get();
+            return Mapper.Map<List<WorkNotesDto>>(notes);
         }
 
         // GET api/WorkNotes/5
-        [ResponseType(typeof(WorkNote))]
+        //[ResponseType(typeof(WorkNote))]
+        [ResponseType(typeof(WorkNotesDto))]
         public IHttpActionResult GetWorkNote(int id)
         {
-            WorkNote worknote = wRep.Get(id);
+            //WorkNote worknote = wRep.Get(id);
+            WorkNotesDto worknote = wRep.Get(id);
             if (worknote == null)
             {
                 return NotFound();

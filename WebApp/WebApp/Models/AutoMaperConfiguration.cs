@@ -12,6 +12,8 @@ namespace WebApp.Models
         {
             Mapper.CreateMap<Employee, EmployersDetailsDto>()
                 .ForMember(dest => dest.EmployersDetailsDtoId, opt => opt.MapFrom(src => src.EmployeeId));
+            Mapper.CreateMap<WorkNote, WorkNotesDto>()
+                .ForMember(d => d.WorkNoteId, o => o.MapFrom(s => s.WorkNoteId));
         }
     }
 }
