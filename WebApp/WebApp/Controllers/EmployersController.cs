@@ -17,18 +17,25 @@ namespace WebApp.Controllers
     {
         private EmployeeRepository eRep = new EmployeeRepository();
         private WebAppContext db = new WebAppContext();
+        private Repository<EmployersDetailsDto, Employee> EmpRepo;
+
+        public EmployersController()
+        {
+            EmpRepo = new Repository<EmployersDetailsDto, Employee>(db.Employees, db);
+        }
 
         // GET api/Employers
         public IList<EmployersDetailsDto> GetEmployees()
         {
-            return eRep.Get();
+            //return eRep.Get();
+            return EmpRepo.Get();
         }
 
         // GET api/Employers/5
-        [ResponseType(typeof(Employee))]
+        [ResponseType(typeof(EmployersDetailsDto))]
         public IHttpActionResult GetEmployee(int id)
         {
-            Employee employee = eRep.Get(id);
+            EmployersDetailsDto employee = eRep.Get(id);
             if (employee == null)
             {
                 return NotFound();
@@ -77,8 +84,11 @@ namespace WebApp.Controllers
             {
                 return BadRequest(ModelState);
             }
+            
+            //
+            EmpRepo.Add(employee);
+            //eRep.Add(employee);
 
-            eRep.Add(employee);
 
             return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);
         }

@@ -164,7 +164,9 @@
     <Compile Include="Models\EmployeeRepository.cs" />
     <Compile Include="Models\EmployersDetailsDto.cs" />
     <Compile Include="Models\IEmployeeRepository.cs" />
+    <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\IWorkNotesRepository.cs" />
+    <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\WebAppContext.cs" />
     <Compile Include="Models\WorkNote.cs" />
     <Compile Include="Models\WorkNoteRepository.cs" />

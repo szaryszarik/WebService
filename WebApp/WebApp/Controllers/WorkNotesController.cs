@@ -17,6 +17,7 @@ namespace WebApp.Controllers
     {
         private WorkNoteRepository wRep = new WorkNoteRepository();
         private WebAppContext db = new WebAppContext();
+        private Repository<WorkNotesDto, WorkNote> WorkRep;
         
         // GET api/WorkNotes
         public IList<WorkNotesDto> GetWorkNotes()
@@ -80,7 +81,9 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            wRep.Add(worknote);
+            WorkRep = new Repository<WorkNotesDto, WorkNote>(db.WorkNotes, db);
+            WorkRep.Add(worknote);
+            //wRep.Add(worknote);
 
             return CreatedAtRoute("DefaultApi", new { id = worknote.WorkNoteId }, worknote);
         }

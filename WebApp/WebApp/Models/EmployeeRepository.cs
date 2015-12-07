@@ -11,6 +11,7 @@ namespace WebApp.Models
     {
         private WebAppContext db = new WebAppContext();
         private List<EmployersDetailsDto> emps;
+
         public EmployeeRepository()
         {
             emps = Get();
@@ -22,10 +23,10 @@ namespace WebApp.Models
             return Mapper.Map<List<EmployersDetailsDto>>(employers);
         }
 
-        public Employee Get(int employeeId)
+        public EmployersDetailsDto Get(int employeeId)
         {
-            Employee employee = db.Employees.Find(employeeId);
-            return employee;
+            var employers = db.Employees.Find(employeeId);
+            return Mapper.Map<EmployersDetailsDto>(employers);
         }
 
         public void Add(Employee employee)
