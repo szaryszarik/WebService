@@ -13,6 +13,7 @@ namespace WebApp.Models
         T Get(int Id);
         void Add(T2 src);
         T2 Remove(int Id);
-        void Update(int Id, T2 src);
+        //T2
+        void Update(int Id, T src);
     }
 }

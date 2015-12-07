@@ -19,16 +19,16 @@ namespace WebApp.Controllers
         private WebAppContext db = new WebAppContext();
         private Repository<EmployersDetailsDto, Employee> EmpRepo;
 
-        public EmployersController()
-        {
-            EmpRepo = new Repository<EmployersDetailsDto, Employee>(db.Employees, db);
-        }
+        //public EmployersController()
+        //{
+        //    EmpRepo = new Repository<EmployersDetailsDto, Employee>(db.Employees, db);
+        //}
 
         // GET api/Employers
         public IList<EmployersDetailsDto> GetEmployees()
         {
-            //return eRep.Get();
-            return EmpRepo.Get();
+            return eRep.Get();
+            //return EmpRepo.Get();
         }
 
         // GET api/Employers/5
@@ -86,8 +86,8 @@ namespace WebApp.Controllers
             }
             
             //
-            EmpRepo.Add(employee);
-            //eRep.Add(employee);
+            //EmpRepo.Add(employee);
+            eRep.Add(employee);
 
 
             return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);

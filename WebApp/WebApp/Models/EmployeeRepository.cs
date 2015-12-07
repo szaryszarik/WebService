@@ -45,7 +45,6 @@ namespace WebApp.Models
                 return employee;
             }
             return null;
-
         }
 
         public void Update(int id, Employee employee)

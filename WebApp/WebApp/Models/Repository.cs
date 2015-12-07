@@ -12,6 +12,7 @@ namespace WebApp.Models
     // T2 == WorkNote, T == WorkNotesDto
     public class Repository<T, T2> : IRepository<T, T2>
         where T2 : class
+        where T : class
     {
         DbSet<T2> dSet;
         WebAppContext db;
@@ -51,8 +52,8 @@ namespace WebApp.Models
             }
             return null;
         }
-
-        public void Update(int Id, T2 src)
+        //T2
+        public void Update(int Id, T src)
         {
             //db.Entry(employee).State = EntityState.Modified;
             //var emp = db.Employees.Single(e => e.EmployeeId == id);
