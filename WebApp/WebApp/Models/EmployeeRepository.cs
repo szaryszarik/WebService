@@ -49,9 +49,16 @@ namespace WebApp.Models
 
         public void Update(int id, Employee employee)
         {
-            db.Entry(employee).State = EntityState.Modified;
-            var emp = db.Employees.Single(e => e.EmployeeId == id);
-            db.SaveChanges();
+            var emp = db.Employees.Find( id );
+			if ( emp == null )
+			{
+				return;
+			}
+
+			emp.LastName = employee.LastName;
+			emp.Name = employee.Name;
+
+			db.SaveChanges();
         }
 
         public bool EmployeeExists(int id)

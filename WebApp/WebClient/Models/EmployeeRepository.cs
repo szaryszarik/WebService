@@ -91,6 +91,7 @@ namespace WebClient.Models
                     Employee temp = await response.Content.ReadAsAsync<Employee>();
                     temp.Name = name;
                     temp.LastName = lastname;
+					temp.EmployeeId = id;
                     Console.WriteLine("OK: {0}", temp.EmployeeId);
                     response = await client.PutAsJsonAsync(query, temp);
                 }
