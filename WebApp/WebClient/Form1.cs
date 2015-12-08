@@ -173,33 +173,36 @@ namespace WebClient
         //Delete Note
         private async void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("This Note is going to be deleted, are you sure?", "WARNING", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            if (dataGridView2.CurrentRow.Selected)
             {
-                int rowIndex = dataGridView1.CurrentCell.RowIndex;
-                DataGridViewRow rowEmp = dataGridView1.Rows[rowIndex];
-                int empID = (int)rowEmp.Cells[0].Value;
-
-                if (dataGridView2.SelectedRows.Count > 0)
+                DialogResult dialogResult = MessageBox.Show("This Note is going to be deleted, are you sure?", "WARNING", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    WorkNoteRepository wRep = new WorkNoteRepository();
-                    DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
-                    int id = (int)row.Cells[0].Value;
-                    await wRep.DeleteWorkNote(id);
-                    dgv = dataGridView2;
-                    dgv.DataSource = null;
-                    List<WorkNote> list = new List<WorkNote>();
-                    list = await wRep.GetWorkNotes();
-                    List<WorkNote> temp = new List<WorkNote>();
-                    var result = list.Where<WorkNote>(item => item.EmployeeId == empID);
-                    foreach (WorkNote w in result)
+                    int rowIndex = dataGridView1.CurrentCell.RowIndex;
+                    DataGridViewRow rowEmp = dataGridView1.Rows[rowIndex];
+                    int empID = (int)rowEmp.Cells[0].Value;
+
+                    if (dataGridView2.SelectedRows.Count > 0)
                     {
-                        temp.Add(w);
+                        WorkNoteRepository wRep = new WorkNoteRepository();
+                        DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
+                        int id = (int)row.Cells[0].Value;
+                        await wRep.DeleteWorkNote(id);
+                        dgv = dataGridView2;
+                        dgv.DataSource = null;
+                        List<WorkNote> list = new List<WorkNote>();
+                        list = await wRep.GetWorkNotes();
+                        List<WorkNote> temp = new List<WorkNote>();
+                        var result = list.Where<WorkNote>(item => item.EmployeeId == empID);
+                        foreach (WorkNote w in result)
+                        {
+                            temp.Add(w);
+                        }
+                        dgv.DataSource = temp;
+                        dgv.Columns["Employee"].Visible = false;
+                        dgv.Columns["WorkNoteId"].Visible = false;
+                        dgv.Columns["EmployeeId"].Visible = false;
                     }
-                    dgv.DataSource = temp;
-                    dgv.Columns["Employee"].Visible = false;
-                    dgv.Columns["WorkNoteId"].Visible = false;
-                    dgv.Columns["EmployeeId"].Visible = false;
                 }
             }
         }
