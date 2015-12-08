@@ -18,21 +18,23 @@ namespace WebApp.Controllers
         private WorkNoteRepository wRep = new WorkNoteRepository();
         private WebAppContext db = new WebAppContext();
         private Repository<WorkNotesDto, WorkNote> WorkRep;
+
+        public WorkNotesController()
+        {
+            WorkRep = new Repository<WorkNotesDto, WorkNote>(db.WorkNotes, db);
+        }
         
         // GET api/WorkNotes
         public IList<WorkNotesDto> GetWorkNotes()
         {
-            var notes = wRep.Get();
-            return Mapper.Map<List<WorkNotesDto>>(notes);
+            return WorkRep.Get();
         }
 
         // GET api/WorkNotes/5
-        //[ResponseType(typeof(WorkNote))]
         [ResponseType(typeof(WorkNotesDto))]
         public IHttpActionResult GetWorkNote(int id)
         {
-            //WorkNote worknote = wRep.Get(id);
-            WorkNotesDto worknote = wRep.Get(id);
+            WorkNotesDto worknote = WorkRep.Get(id);
             if (worknote == null)
             {
                 return NotFound();
@@ -55,11 +57,11 @@ namespace WebApp.Controllers
             }
             try
             {
-                wRep.Update(id, worknote);
+                WorkRep.Update(id, worknote);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!wRep.WorkNoteExists(id))
+                if(!WorkRep.WorkNoteExists(id))
                 {
                     return NotFound();
                 }
@@ -81,9 +83,7 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            WorkRep = new Repository<WorkNotesDto, WorkNote>(db.WorkNotes, db);
             WorkRep.Add(worknote);
-            //wRep.Add(worknote);
 
             return CreatedAtRoute("DefaultApi", new { id = worknote.WorkNoteId }, worknote);
         }
@@ -92,7 +92,7 @@ namespace WebApp.Controllers
         [ResponseType(typeof(WorkNote))]
         public IHttpActionResult DeleteWorkNote(int id)
         {
-            WorkNote worknote = wRep.Remove(id);
+            WorkNote worknote = WorkRep.Remove(id);
             if (worknote == null)
             {
                 return NotFound();

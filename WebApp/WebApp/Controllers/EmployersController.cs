@@ -19,23 +19,22 @@ namespace WebApp.Controllers
         private WebAppContext db = new WebAppContext();
         private Repository<EmployersDetailsDto, Employee> EmpRepo;
 
-        //public EmployersController()
-        //{
-        //    EmpRepo = new Repository<EmployersDetailsDto, Employee>(db.Employees, db);
-        //}
+        public EmployersController()
+        {
+            EmpRepo = new Repository<EmployersDetailsDto, Employee>(db.Employees, db);
+        }
 
         // GET api/Employers
         public IList<EmployersDetailsDto> GetEmployees()
         {
-            return eRep.Get();
-            //return EmpRepo.Get();
+            return EmpRepo.Get();
         }
 
         // GET api/Employers/5
         [ResponseType(typeof(EmployersDetailsDto))]
         public IHttpActionResult GetEmployee(int id)
         {
-            EmployersDetailsDto employee = eRep.Get(id);
+            EmployersDetailsDto employee = EmpRepo.Get(id);
             if (employee == null)
             {
                 return NotFound();
@@ -60,11 +59,11 @@ namespace WebApp.Controllers
             }
             try
             {
-                eRep.Update(id, employee);
+                EmpRepo.Update(id, employee);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!eRep.EmployeeExists(id))
+                if(!EmpRepo.EmployeeExists(id))
                 {
                     return NotFound();
                 }
@@ -85,10 +84,7 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
             
-            //
-            //EmpRepo.Add(employee);
-            eRep.Add(employee);
-
+            EmpRepo.Add(employee);
 
             return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);
         }
@@ -97,7 +93,7 @@ namespace WebApp.Controllers
         [ResponseType(typeof(Employee))]
         public IHttpActionResult DeleteEmployee(int id)
         {
-            Employee employee = eRep.Remove(id);
+            Employee employee = EmpRepo.Remove(id);
             if (employee == null)
             {
                 return NotFound();

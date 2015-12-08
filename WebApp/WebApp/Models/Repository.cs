@@ -52,15 +52,30 @@ namespace WebApp.Models
             }
             return null;
         }
-        //T2
-        public void Update(int Id, T src)
+        
+        public void Update(int Id, Employee employee)
         {
-            //db.Entry(employee).State = EntityState.Modified;
-            //var emp = db.Employees.Single(e => e.EmployeeId == id);
-            //db.SaveChanges();
-            db.Entry(src).State = EntityState.Modified;
-            var temp = dSet.Find(Id);
+            var temp = db.Employees.Find(Id);
+            if(temp == null) { return; }
+            temp.LastName = employee.LastName;
+            temp.Name = employee.Name;
             db.SaveChanges();
+        }
+
+        public bool EmployeeExists(int id)
+        {
+            return db.Employees.Any(e => e.EmployeeId == id);
+        }
+
+        public void Update(int Id, WorkNote workNote)
+        {
+            db.Entry(workNote).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public bool WorkNoteExists(int id)
+        {
+            return db.WorkNotes.Any(e => e.WorkNoteId == id);
         }
     }
 }
