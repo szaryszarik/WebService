@@ -15,7 +15,6 @@ namespace WebApp.Controllers
 {
     public class EmployersController : ApiController
     {
-        private EmployeeRepository eRep = new EmployeeRepository();
         private WebAppContext db = new WebAppContext();
         private Repository<EmployersDetailsDto, Employee> EmpRepo;
 

@@ -13,8 +13,6 @@ namespace WebClient
 {
     static class Program
     {
-        static EmployeeRepository eRep = new EmployeeRepository();
-        static WorkNoteRepository wRep = new WorkNoteRepository();
         [STAThread]
         static void Main()
         {

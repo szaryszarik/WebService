@@ -12,5 +12,6 @@ namespace WebClient.Models
         Task<WorkNote> GetWorkNote(int id);
         Task PostWorkNote(WorkNote workNote);
         Task DeleteWorkNote(int workNoteId);
+        Task PutWorkNote(int id, WorkNote workNote);
     }
 }

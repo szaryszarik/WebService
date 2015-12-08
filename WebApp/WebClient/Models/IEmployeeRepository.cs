@@ -9,7 +9,6 @@ namespace WebClient.Models
 {
     interface IEmployeeRepository
     {
-        //Task<List<EmployersDetailsDto>> GetEmployers();
         Task<BindingList<EmployersDetailsDto>> GetEmployers();
         Task GetEmployers(int id);
         Task PostEmployee(string name, string lastName);

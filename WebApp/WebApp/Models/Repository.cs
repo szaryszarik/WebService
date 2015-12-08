@@ -8,8 +8,6 @@ using WebApp.Models;
 
 namespace WebApp.Models
 {
-    // T2 == Employee, T == EmployersDetailsDto
-    // T2 == WorkNote, T == WorkNotesDto
     public class Repository<T, T2> : IRepository<T, T2>
         where T2 : class
         where T : class

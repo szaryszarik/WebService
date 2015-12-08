@@ -67,6 +67,7 @@
             this.dataGridView2.Size = new System.Drawing.Size(317, 266);
             this.dataGridView2.TabIndex = 2;
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
+            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
             // 
             // button2
             // 

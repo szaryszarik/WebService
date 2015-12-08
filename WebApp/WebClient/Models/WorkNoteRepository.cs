@@ -1,10 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WebClient.Models
 {
@@ -69,6 +71,29 @@ namespace WebClient.Models
                     Task<string> d = data.ReadAsStringAsync();
                     Console.WriteLine("The deleted record is");
                     Console.Write(d.Result.ToString());
+                }
+            }
+        }
+
+        public async Task PutWorkNote(int id, WorkNote workNote)
+        {
+            using(var client = new HttpClient())
+            {
+                ConfigClient(client);
+                string query = "api/WorkNotes/" + id;
+                HttpResponseMessage response = await client.GetAsync(query);
+                if (response.IsSuccessStatusCode)
+                {
+                    WorkNote temp = await response.Content.ReadAsAsync<WorkNote>();
+                    temp.Date = workNote.Date;
+                    temp.EmployeeId = workNote.EmployeeId;
+                    temp.StartTime = workNote.StartTime;
+                    temp.EndTime = workNote.EndTime;
+                    temp.Note = workNote.Note;
+                    temp.WorkNoteId = workNote.WorkNoteId;
+
+                    Console.WriteLine("OK: {0}", temp.WorkNoteId);
+                    response = await client.PutAsJsonAsync(query, temp);
                 }
             }
         }

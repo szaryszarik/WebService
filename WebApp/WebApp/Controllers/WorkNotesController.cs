@@ -15,7 +15,6 @@ namespace WebApp.Controllers
 {
     public class WorkNotesController : ApiController
     {
-        private WorkNoteRepository wRep = new WorkNoteRepository();
         private WebAppContext db = new WebAppContext();
         private Repository<WorkNotesDto, WorkNote> WorkRep;
 

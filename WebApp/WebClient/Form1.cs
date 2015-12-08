@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -120,7 +121,7 @@ namespace WebClient
             }
         }
 
-        //Edit
+        //Edit Employee
         private async void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
@@ -167,11 +168,6 @@ namespace WebClient
                 }
                 dgv.DataSource = temp;
             }
-            //string name = (string)row.Cells[1].Value;
-            //string lastName = (string)row.Cells[2].Value;
-
-            //EmployeeRepository eRep = new EmployeeRepository();
-            //await eRep.PutEmployee(id, name, lastName);
         }
 
         //Delete Note
@@ -206,6 +202,25 @@ namespace WebClient
                     dgv.Columns["EmployeeId"].Visible = false;
                 }
             }
+        }
+
+        //Edit Worknote
+        private async void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
+            int id = (int)row.Cells[0].Value;
+
+            WorkNote temp = new WorkNote();
+            temp.StartTime = (int)row.Cells[2].Value;
+            temp.EndTime = (int)row.Cells[3].Value;
+            temp.Date = (string)row.Cells[4].Value;
+            temp.Note = (string)row.Cells[5].Value;
+            temp.EmployeeId = (int)row.Cells[1].Value;
+            temp.WorkNoteId = id;
+            //Mapper.CreateMap<DataGridView, WorkNote>();
+            //WorkNote temp = Mapper.Map<WorkNote>(sender);
+            WorkNoteRepository wRep = new WorkNoteRepository();
+            await wRep.PutWorkNote(id, temp);
         }
     }
 }
