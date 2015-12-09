@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace WebApp.Models
 {
     interface IRepository<T, T2>
     {
-        List<T> Get();
-        T Get(int Id);
-        void Add(T2 src);
-        T2 Remove(int Id);
-        void Update(int Id, Employee employee);
-        void Update(int Id, WorkNote workNote);
+        List<T> get();
+        T get(int Id);
+        void add(T2 src);
+        void remove(int Id);
     }
 }

@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebApp.Models;
@@ -20,20 +16,20 @@ namespace WebApp.Controllers
 
         public WorkNotesController()
         {
-            WorkRep = new Repository<WorkNotesDto, WorkNote>(db.WorkNotes, db);
+            WorkRep = new Repository<WorkNotesDto, WorkNote>();
         }
         
         // GET api/WorkNotes
-        public IList<WorkNotesDto> GetWorkNotes()
+        public IList<WorkNotesDto> getWorkNotes()
         {
-            return WorkRep.Get();
+            return WorkRep.get();
         }
 
         // GET api/WorkNotes/5
         [ResponseType(typeof(WorkNotesDto))]
-        public IHttpActionResult GetWorkNote(int id)
+        public IHttpActionResult getWorkNote(int id)
         {
-            WorkNotesDto worknote = WorkRep.Get(id);
+            WorkNotesDto worknote = WorkRep.get(id);
             if (worknote == null)
             {
                 return NotFound();
@@ -43,7 +39,7 @@ namespace WebApp.Controllers
         }
 
         // PUT api/WorkNotes/5
-        public IHttpActionResult PutWorkNote(int id, WorkNote worknote)
+        public IHttpActionResult putWorkNote(int id, WorkNote worknote)
         {
             if (!ModelState.IsValid)
             {
@@ -56,18 +52,12 @@ namespace WebApp.Controllers
             }
             try
             {
-                WorkRep.Update(id, worknote);
+                db.Entry(worknote).State = EntityState.Modified;
+                db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if(!WorkRep.WorkNoteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -75,28 +65,24 @@ namespace WebApp.Controllers
 
         // POST api/WorkNotes
         [ResponseType(typeof(WorkNote))]
-        public IHttpActionResult PostWorkNote(WorkNote worknote)
+        public IHttpActionResult postWorkNote(WorkNote worknote)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            WorkRep.Add(worknote);
+            WorkRep.add(worknote);
 
             return CreatedAtRoute("DefaultApi", new { id = worknote.WorkNoteId }, worknote);
         }
 
         // DELETE api/WorkNotes/5
         [ResponseType(typeof(WorkNote))]
-        public IHttpActionResult DeleteWorkNote(int id)
+        public IHttpActionResult deleteWorkNote(int id)
         {
-            WorkNote worknote = WorkRep.Remove(id);
-            if (worknote == null)
-            {
-                return NotFound();
-            }
-            return Ok(worknote);
+            WorkRep.remove(id);
+            return Ok();
         }
     }
 }
