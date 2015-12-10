@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -39,7 +39,7 @@ namespace WebApp.Controllers
         }
 
         // PUT api/WorkNotes/5
-        public IHttpActionResult putWorkNote(int id, WorkNote worknote)
+        public IHttpActionResult putWorkNote(int id, WorkNotesDto worknote)
         {
             if (!ModelState.IsValid)
             {
@@ -52,7 +52,7 @@ namespace WebApp.Controllers
             }
             try
             {
-                db.Entry(worknote).State = EntityState.Modified;
+                db.Entry(Mapper.Map<WorkNote>(worknote)).State = EntityState.Modified;
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
@@ -64,8 +64,7 @@ namespace WebApp.Controllers
         }
 
         // POST api/WorkNotes
-        [ResponseType(typeof(WorkNote))]
-        public IHttpActionResult postWorkNote(WorkNote worknote)
+        public IHttpActionResult postWorkNote(WorkNotesDto worknote)
         {
             if (!ModelState.IsValid)
             {
@@ -78,7 +77,6 @@ namespace WebApp.Controllers
         }
 
         // DELETE api/WorkNotes/5
-        [ResponseType(typeof(WorkNote))]
         public IHttpActionResult deleteWorkNote(int id)
         {
             WorkRep.remove(id);

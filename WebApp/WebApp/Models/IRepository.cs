@@ -6,7 +6,7 @@ namespace WebApp.Models
     {
         List<T> get();
         T get(int Id);
-        void add(T2 src);
+        void add(T src);
         void remove(int Id);
     }
 }

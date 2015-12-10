@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -38,8 +37,8 @@ namespace WebApp.Controllers
         }
 
         // PUT api/Employers/5
-        [ResponseType(typeof(Employee))]
-        public IHttpActionResult putEmployee(int id, Employee employee)
+        [ResponseType(typeof(EmployersDetailsDto))]
+        public IHttpActionResult putEmployee(int id, EmployersDetailsDto employee)
         {
 
             if (!ModelState.IsValid)
@@ -47,7 +46,7 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != employee.EmployeeId)
+            if (id != employee.EmployersDetailsDtoId)
             {
                 return BadRequest();
             }
@@ -66,8 +65,7 @@ namespace WebApp.Controllers
         }
 
         // POST api/Employers
-        [ResponseType(typeof(Employee))]
-        public IHttpActionResult postEmployee(Employee employee)
+        public IHttpActionResult postEmployee(EmployersDetailsDto employee)
         {
             if (!ModelState.IsValid)
             {
@@ -76,11 +74,11 @@ namespace WebApp.Controllers
             
             EmpRepo.add(employee);
 
-            return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);
+            return CreatedAtRoute("DefaultApi", new { id = employee.EmployersDetailsDtoId }, employee);
         }
 
         // DELETE api/Employers/5
-        [ResponseType(typeof(Employee))]
+        [ResponseType(typeof(EmployersDetailsDto))]
         public IHttpActionResult deleteEmployee(int id)
         {
             EmpRepo.remove(id);

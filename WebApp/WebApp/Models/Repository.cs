@@ -18,9 +18,9 @@ namespace WebApp.Models
             dSet = db.Set<T2>();
         }
 
-        public void add(T2 src)
+        public void add(T src)
         {
-            dSet.Add(src);
+            dSet.Add(Mapper.Map<T2>(src));
             db.SaveChanges();
         }
 
@@ -39,7 +39,7 @@ namespace WebApp.Models
         public void remove(int Id)
         {
             T2 temp = dSet.Find(Id);
-            if(temp != null)
+            if (temp != null)
             {
                 dSet.Remove(temp);
                 db.SaveChanges();

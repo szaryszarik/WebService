@@ -1,8 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace WebApp.Models
 {
@@ -12,8 +8,11 @@ namespace WebApp.Models
         {
             Mapper.CreateMap<Employee, EmployersDetailsDto>()
                 .ForMember(dest => dest.EmployersDetailsDtoId, opt => opt.MapFrom(src => src.EmployeeId));
+            Mapper.CreateMap<EmployersDetailsDto, Employee>()
+                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(sc => sc.EmployersDetailsDtoId));
             Mapper.CreateMap<WorkNote, WorkNotesDto>()
                 .ForMember(d => d.WorkNoteId, o => o.MapFrom(s => s.WorkNoteId));
+            Mapper.CreateMap<WorkNotesDto, WorkNote>();
         }
     }
 }

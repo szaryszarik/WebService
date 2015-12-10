@@ -13,7 +13,6 @@ namespace WebApp
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            //Mapper.CreateMap<Employee, EmployersDetailsDto>();
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
