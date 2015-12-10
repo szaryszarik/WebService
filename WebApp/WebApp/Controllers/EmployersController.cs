@@ -18,16 +18,16 @@ namespace WebApp.Controllers
         }
 
         // GET api/Employers
-        public IList<EmployersDetailsDto> getEmployees()
+        public IList<EmployersDetailsDto> GetEmployees()
         {
-            return EmpRepo.get();
+            return EmpRepo.Get();
         }
 
         // GET api/Employers/5
         [ResponseType(typeof(EmployersDetailsDto))]
-        public IHttpActionResult getEmployee(int id)
+        public IHttpActionResult GetEmployee(int id)
         {
-            EmployersDetailsDto employee = EmpRepo.get(id);
+            EmployersDetailsDto employee = EmpRepo.Get(id);
             if (employee == null)
             {
                 return NotFound();
@@ -38,7 +38,7 @@ namespace WebApp.Controllers
 
         // PUT api/Employers/5
         [ResponseType(typeof(EmployersDetailsDto))]
-        public IHttpActionResult putEmployee(int id, EmployersDetailsDto employee)
+        public IHttpActionResult PutEmployee(int id, EmployersDetailsDto employee)
         {
 
             if (!ModelState.IsValid)
@@ -52,10 +52,7 @@ namespace WebApp.Controllers
             }
             try
             {
-                var temp = db.Employees.Find(id);
-                temp.LastName = employee.LastName;
-                temp.Name = employee.Name;
-                db.SaveChanges();
+                EmpRepo.Edit(id, employee);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -65,23 +62,23 @@ namespace WebApp.Controllers
         }
 
         // POST api/Employers
-        public IHttpActionResult postEmployee(EmployersDetailsDto employee)
+        public IHttpActionResult PostEmployee(EmployersDetailsDto employee)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             
-            EmpRepo.add(employee);
+            EmpRepo.Add(employee);
 
             return CreatedAtRoute("DefaultApi", new { id = employee.EmployersDetailsDtoId }, employee);
         }
 
         // DELETE api/Employers/5
         [ResponseType(typeof(EmployersDetailsDto))]
-        public IHttpActionResult deleteEmployee(int id)
+        public IHttpActionResult DeleteEmployee(int id)
         {
-            EmpRepo.remove(id);
+            EmpRepo.Remove(id);
             return Ok();
         }
     }

@@ -4,9 +4,10 @@ namespace WebApp.Models
 {
     interface IRepository<T, T2>
     {
-        List<T> get();
-        T get(int Id);
-        void add(T src);
-        void remove(int Id);
+        List<T> Get();
+        T Get(int Id);
+        void Add(T src);
+        void Remove(int Id);
+        void Edit(int id, T obj);
     }
 }

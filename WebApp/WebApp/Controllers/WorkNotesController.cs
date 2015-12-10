@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Web.Http;
@@ -20,16 +18,16 @@ namespace WebApp.Controllers
         }
         
         // GET api/WorkNotes
-        public IList<WorkNotesDto> getWorkNotes()
+        public IList<WorkNotesDto> GetWorkNotes()
         {
-            return WorkRep.get();
+            return WorkRep.Get();
         }
 
         // GET api/WorkNotes/5
         [ResponseType(typeof(WorkNotesDto))]
-        public IHttpActionResult getWorkNote(int id)
+        public IHttpActionResult GetWorkNote(int id)
         {
-            WorkNotesDto worknote = WorkRep.get(id);
+            WorkNotesDto worknote = WorkRep.Get(id);
             if (worknote == null)
             {
                 return NotFound();
@@ -39,7 +37,7 @@ namespace WebApp.Controllers
         }
 
         // PUT api/WorkNotes/5
-        public IHttpActionResult putWorkNote(int id, WorkNotesDto worknote)
+        public IHttpActionResult PutWorkNote(int id, WorkNotesDto worknote)
         {
             if (!ModelState.IsValid)
             {
@@ -52,8 +50,7 @@ namespace WebApp.Controllers
             }
             try
             {
-                db.Entry(Mapper.Map<WorkNote>(worknote)).State = EntityState.Modified;
-                db.SaveChanges();
+                WorkRep.Edit(id, worknote);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -64,22 +61,22 @@ namespace WebApp.Controllers
         }
 
         // POST api/WorkNotes
-        public IHttpActionResult postWorkNote(WorkNotesDto worknote)
+        public IHttpActionResult PostWorkNote(WorkNotesDto worknote)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            WorkRep.add(worknote);
+            WorkRep.Add(worknote);
 
             return CreatedAtRoute("DefaultApi", new { id = worknote.WorkNoteId }, worknote);
         }
 
         // DELETE api/WorkNotes/5
-        public IHttpActionResult deleteWorkNote(int id)
+        public IHttpActionResult DeleteWorkNote(int id)
         {
-            WorkRep.remove(id);
+            WorkRep.Remove(id);
             return Ok();
         }
     }

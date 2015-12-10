@@ -4,7 +4,7 @@ namespace WebApp.Controllers
 {
     public class InfoController : ApiController
     {
-        public string getInfo()
+        public string GetInfo()
         {
             return "Info";
         }

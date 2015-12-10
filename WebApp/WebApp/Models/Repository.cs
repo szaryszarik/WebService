@@ -18,25 +18,25 @@ namespace WebApp.Models
             dSet = db.Set<T2>();
         }
 
-        public void add(T src)
+        public void Add(T src)
         {
             dSet.Add(Mapper.Map<T2>(src));
             db.SaveChanges();
         }
 
-        public List<T> get()
+        public List<T> Get()
         {
             var src = dSet.ToList();
             return Mapper.Map<List<T>>(src);
         }
 
-        public T get(int Id)
+        public T Get(int Id)
         {
             var src = dSet.Find(Id);
             return Mapper.Map<T>(src);
         }
 
-        public void remove(int Id)
+        public void Remove(int Id)
         {
             T2 temp = dSet.Find(Id);
             if (temp != null)
@@ -44,6 +44,12 @@ namespace WebApp.Models
                 dSet.Remove(temp);
                 db.SaveChanges();
             }
+        }
+
+        public void Edit(int id, T obj)
+        {
+            db.Entry(Mapper.Map<T2>(obj)).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }
