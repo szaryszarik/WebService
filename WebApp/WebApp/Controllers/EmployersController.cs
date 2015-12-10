@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebApp.Models;
@@ -54,9 +55,9 @@ namespace WebApp.Controllers
             {
                 EmpRepo.Edit(id, employee);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException e)
             {
-                throw;
+                throw new HttpRequestException(e.ToString());
             }
             return StatusCode(HttpStatusCode.NoContent);
         }
