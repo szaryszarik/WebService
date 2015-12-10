@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebClient.Models;
 
@@ -35,10 +31,10 @@ namespace WebClient
                 string note = noteRichBox.Text;
 
                 WorkNote wNote = new WorkNote() { EmployeeId = employeeId, StartTime = sTime, EndTime = eTime, Date = date, Note = note };
-                await wRep.PostWorkNote(wNote);
+                await wRep.add(wNote);
 
                 F.dgv.DataSource = null;
-                list = await wRep.GetWorkNotes();
+                list = await wRep.get();
 
                 List<WorkNote> temp = new List<WorkNote>();
 

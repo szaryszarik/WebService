@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace WebClient.Models
 {
     interface IEmployeeRepository
     {
-        Task<BindingList<EmployersDetailsDto>> GetEmployers();
-        Task GetEmployers(int id);
-        Task PostEmployee(string name, string lastName);
-        Task DeleteEmployee(int id);
-        Task PutEmployee(int id, string name, string lastName);
+        Task<BindingList<EmployersDetailsDto>> get();
+        Task get(int id);
+        Task add(string name, string lastName);
+        Task remove(int id);
+        Task edit(int id, string name, string lastName);
     }
 }

@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Windows.Forms;
-using WebClient.Models;
-using System.Collections.ObjectModel;
 
 namespace WebClient.Models
 {
     class EmployeeRepository : IEmployeeRepository
     {
-        public async Task<BindingList<EmployersDetailsDto>> GetEmployers()
+        public async Task<BindingList<EmployersDetailsDto>> get()
         {
             using (var client = new HttpClient())
             {
@@ -31,7 +23,7 @@ namespace WebClient.Models
             }
         }
 
-        public async Task GetEmployers(int id)
+        public async Task get(int id)
         {
             using (var client = new HttpClient())
             {
@@ -41,12 +33,11 @@ namespace WebClient.Models
                 if (response.IsSuccessStatusCode)
                 {
                     Employee employee = await response.Content.ReadAsAsync<Employee>();
-                    Console.WriteLine("{0}\tName:{1}\tLastName:{2}", employee.EmployeeId, employee.Name, employee.LastName);
                 }
             }
         }
 
-        public async Task PostEmployee(string name, string lastName)
+        public async Task add(string name, string lastName)
         {
             using (var client = new HttpClient())
             {
@@ -61,7 +52,7 @@ namespace WebClient.Models
             }
         }
 
-        public async Task DeleteEmployee(int id)
+        public async Task remove(int id)
         {
             using (var client = new HttpClient())
             {
@@ -73,13 +64,11 @@ namespace WebClient.Models
                 if (response.IsSuccessStatusCode)
                 {
                     Task<string> d = data.ReadAsStringAsync();
-                    Console.WriteLine("Tthe deleted record is");
-                    Console.Write(d.Result.ToString());
                 }
             }
         }
 
-        public async Task PutEmployee(int id, string name, string lastname)
+        public async Task edit(int id, string name, string lastname)
         {
             using(var client = new HttpClient())
             {
@@ -88,11 +77,10 @@ namespace WebClient.Models
                 HttpResponseMessage response = await client.GetAsync(query);
                 if (response.IsSuccessStatusCode)
                 {
-                    Employee temp = await response.Content.ReadAsAsync<Employee>();
+                    EmployersDetailsDto temp = await response.Content.ReadAsAsync<EmployersDetailsDto>();
                     temp.Name = name;
                     temp.LastName = lastname;
-					temp.EmployeeId = id;
-                    Console.WriteLine("OK: {0}", temp.EmployeeId);
+					temp.EmployersDetailsDtoId = id;
                     response = await client.PutAsJsonAsync(query, temp);
                 }
             }

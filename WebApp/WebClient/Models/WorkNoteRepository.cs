@@ -1,18 +1,14 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WebClient.Models
 {
     class WorkNoteRepository : IWorkNotesRepository
     {
-        public async Task<List<WorkNote>> GetWorkNotes()
+        public async Task<List<WorkNote>> get()
         {
             using (var client = new HttpClient())
             {
@@ -26,7 +22,7 @@ namespace WebClient.Models
                 return null;
             }
         }
-        public async Task<WorkNote> GetWorkNote(int id)
+        public async Task<WorkNote> get(int id)
         {
             using (var client = new HttpClient())
             {
@@ -43,7 +39,7 @@ namespace WebClient.Models
             }
         }
 
-        public async Task PostWorkNote(WorkNote workNote)
+        public async Task add(WorkNote workNote)
         {
             using (var client = new HttpClient())
             {
@@ -57,7 +53,7 @@ namespace WebClient.Models
             }
         }
 
-        public async Task DeleteWorkNote(int workNoteId)
+        public async Task remove(int workNoteId)
         {
             using (var client = new HttpClient())
             {
@@ -69,13 +65,11 @@ namespace WebClient.Models
                 if (response.IsSuccessStatusCode)
                 {
                     Task<string> d = data.ReadAsStringAsync();
-                    Console.WriteLine("The deleted record is");
-                    Console.Write(d.Result.ToString());
                 }
             }
         }
 
-        public async Task PutWorkNote(int id, WorkNote workNote)
+        public async Task edit(int id, WorkNote workNote)
         {
             using(var client = new HttpClient())
             {

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebClient.Models;
 
@@ -31,10 +25,10 @@ namespace WebClient
             {
                 name = NameBox.Text;
                 lastName = LNameBox.Text;
-                await eRep.PostEmployee(name, lastName);
+                await eRep.add(name, lastName);
 
                 F.dgv.DataSource = null;
-                list = await eRep.GetEmployers();
+                list = await eRep.get();
                 F.bs.DataSource = list;
                 F.dgv.DataSource = list;
 

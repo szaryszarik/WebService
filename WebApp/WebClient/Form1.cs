@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebClient.Models;
 
@@ -34,7 +30,7 @@ namespace WebClient
         public async void button1_Click(object sender, EventArgs e)
         {
             EmployeeRepository eps = new EmployeeRepository();
-            list = await eps.GetEmployers();
+            list = await eps.get();
             bs.DataSource = list;
             dataGridView1.DataSource = list;
         }
@@ -49,7 +45,7 @@ namespace WebClient
             {
                 WorkNoteRepository wps = new WorkNoteRepository();
                 List<WorkNote> list = new List<WorkNote>();
-                list = await wps.GetWorkNotes();
+                list = await wps.get();
                 int rowIndex = e.RowIndex;
                 if (rowIndex >= 0)
                 {
@@ -80,12 +76,8 @@ namespace WebClient
                     int rowIndex = dataGridView1.CurrentCell.RowIndex;
                     EmployeeRepository eps = new EmployeeRepository();
                     DataGridViewRow row = dataGridView1.Rows[rowIndex];
-                    await eps.DeleteEmployee((int)row.Cells[0].Value);
+                    await eps.remove((int)row.Cells[0].Value);
                     bs.RemoveAt(dataGridView1.SelectedRows[0].Index);
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    //do something else
                 }
             }
             else
@@ -131,7 +123,7 @@ namespace WebClient
 
             WorkNoteRepository wRep = new WorkNoteRepository();
             List<WorkNote> list = new List<WorkNote>();
-            list = await wRep.GetWorkNotes();
+            list = await wRep.get();
             List<WorkNote> temp = new List<WorkNote>();
             var result = list.Where<WorkNote>(item => item.EmployeeId == id);
             foreach (WorkNote w in result)
@@ -144,22 +136,22 @@ namespace WebClient
                 string lastName = (string)row.Cells[2].Value;
 
                 EmployeeRepository eRep = new EmployeeRepository();
-                await eRep.PutEmployee(id, name, lastName);
+                await eRep.edit(id, name, lastName);
             }
             else
             {
                 foreach (WorkNote w in temp)
                 {
-                    await wRep.DeleteWorkNote(w.WorkNoteId);
+                    await wRep.remove(w.WorkNoteId);
                 }
                 string name = (string)row.Cells[1].Value;
                 string lastName = (string)row.Cells[2].Value;
 
                 EmployeeRepository eRep = new EmployeeRepository();
-                await eRep.PutEmployee(id, name, lastName);
+                await eRep.edit(id, name, lastName);
                 foreach (WorkNote w in temp)
                 {
-                    await wRep.PostWorkNote(w);
+                    await wRep.add(w);
                 }
                 result = list.Where<WorkNote>(item => item.EmployeeId == id);
                 foreach (WorkNote w in result)
@@ -187,11 +179,11 @@ namespace WebClient
                         WorkNoteRepository wRep = new WorkNoteRepository();
                         DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
                         int id = (int)row.Cells[0].Value;
-                        await wRep.DeleteWorkNote(id);
+                        await wRep.remove(id);
                         dgv = dataGridView2;
                         dgv.DataSource = null;
                         List<WorkNote> list = new List<WorkNote>();
-                        list = await wRep.GetWorkNotes();
+                        list = await wRep.get();
                         List<WorkNote> temp = new List<WorkNote>();
                         var result = list.Where<WorkNote>(item => item.EmployeeId == empID);
                         foreach (WorkNote w in result)
@@ -223,7 +215,7 @@ namespace WebClient
             //Mapper.CreateMap<DataGridView, WorkNote>();
             //WorkNote temp = Mapper.Map<WorkNote>(sender);
             WorkNoteRepository wRep = new WorkNoteRepository();
-            await wRep.PutWorkNote(id, temp);
+            await wRep.edit(id, temp);
         }
     }
 }
